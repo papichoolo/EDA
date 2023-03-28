@@ -21,7 +21,7 @@ with header:
 
 with eda:
     st.header("this is the dataset")
-    kalia=pd.read_csv("C:\\Users\\utfu\\Desktop\\EDA frontend\\data\\ProcessedKaliyasotAllParams.csv")
+    kalia=pd.read_csv("ProcessedKaliyasotAllParams.csv")
     st.write(kalia.head())
     st.header("this is the histogram")
     fig = px.histogram(kalia, y=["ndwi", "mndwi", "ndci", "ndti", "do", "ph", "chl_a", "ssc", "wst"], title="Range of Data Collected", x=kalia["date"])
