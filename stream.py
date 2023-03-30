@@ -43,12 +43,6 @@ def insights():
     st.write(fig)
     fig = px.scatter(kalia, x="chl_a",title="CHl-a vs SSC", y="ssc")
     st.write(fig)
-def correlation():
-    import seaborn as sns
-    import matplotlib.pyplot as plt
-    corr = kalia.corr()
-    plt.figure(figsize=(25,6))
-    sns.heatmap(kalia.corr(),annot=True,cmap=sns.diverging_palette(230, 20, as_cmap=True),vmax=.3, center=0,square=False, linewidths=.5, cbar_kws={"shrink": .5})
 def scatterplot():
     st.header("Final Scatterplot Matrix showing all relations between parameters")
     fig = px.scatter_matrix(kalia, dimensions=["ndwi", "mndwi", "ndci", "ndti", "do", "ph", "chl_a", "ssc", "wst"], color='date')
@@ -59,7 +53,6 @@ page_names_to_funcs = {
     "Dataset": dataset,
     "Outlier Detection": boxplot,
     "Insights": insights,
-    "Correlation": correlation,
     "Scatterplot":scatterplot,
 }
 selected_page = st.sidebar.selectbox("Select a page", page_names_to_funcs.keys())
