@@ -17,7 +17,7 @@ scatterplot.markdown(
     unsafe_allow_html=True,
 )
 with header:
-    st.text("HALLO!")
+    st.title("Kaliyasot Dam Visualization Tool")
 
 with eda:
     st.header("this is the dataset")
