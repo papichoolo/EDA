@@ -2,18 +2,18 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-header= st.container()
-eda=st.container()
-with header:
-    st.title("Kaliyasot Dam Visualization Tool")
 
-with eda:
+
+st.title("Kaliyasot Dam Visualization Tool")
+kalia=pd.read_csv("ProcessedKaliyasotAllParams.csv")
+def dataset():
     st.header("this is the dataset")
-    kalia=pd.read_csv("ProcessedKaliyasotAllParams.csv")
+    
     st.write(kalia.head())
     st.header("this is the histogram")
     fig = px.histogram(kalia, y=["ndwi", "mndwi", "ndci", "ndti", "do", "ph", "chl_a", "ssc", "wst"], title="Range of Data Collected", x=kalia["date"])
     st.write(fig)
+def boxplot():
     st.header("Outlier Detection")
     st.text("A good way to know the range of data and outliers in the data is by a boxplot.")
     fig = px.box(kalia,  x=["wst","chl_a"] , title="Outlier Detection of chl_a and wst", points="all",boxmode="group")
@@ -24,6 +24,7 @@ with eda:
     st.write(fig)
     fig = px.box(kalia,  x=["ndwi", "mndwi","do", "ndci", "ndti"] , title="Outlier Detection of Normalised Water Parameters (and DO)", points="all",boxmode="group")
     st.write(fig)
+def insights():
     st.header("Insights")
     st.markdown("Correct asymptotic trends seen in between NDCI and temperature since chloropyhll content reaches saturation after a certain temperature.")
     st.markdown("Correct relation between ssc and ndti (both calculate the sedimentation in water body.")
@@ -42,13 +43,24 @@ with eda:
     st.write(fig)
     fig = px.scatter(kalia, x="chl_a",title="CHl-a vs SSC", y="ssc")
     st.write(fig)
+def correlation():
     import seaborn as sns
     import matplotlib.pyplot as plt
     corr = kalia.corr()
     plt.figure(figsize=(25,6))
     sns.heatmap(kalia.corr(),annot=True,cmap=sns.diverging_palette(230, 20, as_cmap=True),vmax=.3, center=0,square=False, linewidths=.5, cbar_kws={"shrink": .5})
-    
+def scatterplot():
     st.header("Final Scatterplot Matrix showing all relations between parameters")
     fig = px.scatter_matrix(kalia, dimensions=["ndwi", "mndwi", "ndci", "ndti", "do", "ph", "chl_a", "ssc", "wst"], color='date')
     fig.update_layout(width=1000,height=800,plot_bgcolor='lightgrey')
     st.write(fig)
+
+page_names_to_funcs = {
+    "Dataset": dataset,
+    "Outlier Detection": boxplot,
+    "Insights": insights,
+    "Correlation": correlation,
+    "Scatterplot":scatterplot,
+}
+selected_page = st.sidebar.selectbox("Select a page", page_names_to_funcs.keys())
+page_names_to_funcs[selected_page]()
