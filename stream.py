@@ -8,7 +8,7 @@ st.title("Kaliyasot Dam Visualization Tool")
 kalia=pd.read_csv("ProcessedKaliyasotAllParams.csv")
 def dataset():
     st.header("this is the dataset")
-    
+    st.markdown("Parameter Selection: Based on LANDSAT-8 and Sentinel-2 satellite data, Team 1 devised many important parameters for the water bodies. These parameters are NDWI (Normalized Difference Water Index), MNDWI (Modified Normalized Difference Water Index), NDTI (Normalized Difference Turbidity Index), NDCI (Normalized Difference Chlorophyll Index), Chlorophyll-a Concentration, SSC (Suspended Sediment Concentration), pH and WST (Water Surface Temperature)")
     st.write(kalia.head())
     st.header("this is the histogram")
     fig = px.histogram(kalia, y=["ndwi", "mndwi", "ndci", "ndti", "do", "ph", "chl_a", "ssc", "wst"], title="Range of Data Collected", x=kalia["date"])
