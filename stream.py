@@ -48,7 +48,7 @@ with eda:
     plt.figure(figsize=(25,6))
     sns.heatmap(kalia.corr(),annot=True,cmap=sns.diverging_palette(230, 20, as_cmap=True),vmax=.3, center=0,square=False, linewidths=.5, cbar_kws={"shrink": .5})
     
-    
+    st.header("Final Scatterplot Matrix showing all relations between parameters")
     fig = px.scatter_matrix(kalia, dimensions=["ndwi", "mndwi", "ndci", "ndti", "do", "ph", "chl_a", "ssc", "wst"], color='date')
     fig.update_layout(width=1000,height=800,plot_bgcolor='lightgrey')
     st.write(fig)
